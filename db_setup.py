@@ -1,5 +1,6 @@
+# This lib will help us to work with mysql db.
 import pymysql
-# This file will be stored on our local machine (we don't want store it in our repo).
+# This file will be stored on our local machine (we don't want store it in our repo, we'll ad it to .gitignore).
 import dbconfig
 # Representation of a socket with a mysql server: https://pymysql.readthedocs.io/en/latest/modules/connections.html
 connection = pymysql.connect(host='localhost',
