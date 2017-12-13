@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+import json
 # Workaround for local development (with db mock).
 import dbconfig
 if dbconfig.test:
@@ -15,12 +16,10 @@ DB = DBHelper()
 
 @app.route("/")
 def home():
-    try:
-        data = DB.get_all_inputs()
-    except Exception as e:
-        print(e)
-        data = None
-    return render_template("home.html", data=data)
+    crimes = DB.get_all_crimes()
+    # Serializing our crimes dict to JSON string.
+    crimes = json.dumps(crimes)
+    return render_template("home.html", crimes=crimes)
 
 
 @app.route("/add", methods=["POST"])

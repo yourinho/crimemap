@@ -1,5 +1,6 @@
 import pymysql
 import dbconfig
+import datetime
 
 
 class DBHelper:
@@ -18,6 +19,26 @@ class DBHelper:
                 cursor.execute(query)
             # Fetch all the rows from "crimes" db and return it as a list.
             return cursor.fetchall()
+        finally:
+            connection.close()
+
+    def get_all_crimes(self):
+        connection = self.connect()
+        try:
+            query = "SELECT latitude, longitude, date, category, description FROM crimes;"
+            with connection.cursor as cursor:
+                cursor.execute(query)
+            named_crimes = []
+            for crime in cursor:
+                named_crime = {
+                    'latitude':crime[0],
+                    'longitude':crime[1],
+                    'date':datetime.datetime.strftime(crime[2], '%Y-%m-%d'),
+                    'category':crime[3],
+                    'description':crime[4]
+                }
+                named_crimes.append(named_crime)
+            return named_crimes
         finally:
             connection.close()
 
@@ -42,7 +63,7 @@ class DBHelper:
         except Exception as e:
             print(e)
         finally:
-            connection.close()
+            connection.close()s
 
     def clear_all(self):
         connection = self.connect()
