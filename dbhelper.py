@@ -63,7 +63,7 @@ class DBHelper:
         except Exception as e:
             print(e)
         finally:
-            connection.close()s
+            connection.close()
 
     def clear_all(self):
         connection = self.connect()
