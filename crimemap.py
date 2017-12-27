@@ -3,7 +3,7 @@ from flask import render_template
 from flask import request
 import json
 import datetime
-import dateparser
+#import dateparser
 import string
 # Workaround for local development (with db mock).
 import dbconfig
@@ -50,9 +50,12 @@ def submitcrime():
     category = request.form.get("category")
     if category not in categories:
         return home()
+    date = request.form.get("date")
+    '''
     date = format_date(request.form.get("date"))
     if not date:
         return home("Invalid date. Please use yyyy-mm-dd format")
+        '''
     try:
         latitude = float(request.form.get("latitude"))
         longitude = float(request.form.get("longitude"))
@@ -69,14 +72,14 @@ def submitcrime():
     DB.add_crime(category, date, latitude, longitude, description)
     return home()
 
-
+'''
 def format_date(userdate):
     date = dateparser.parse(userdate)
     try:
         return datetime.datetime.strftime(date, "%Y-%m-%d")
     except TypeError:
         return None
-
+'''
 
 def sanitize_string(user_input):
     white_list = string.letters + string.digits + " !?$.,;:-'()&"
