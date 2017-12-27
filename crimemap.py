@@ -63,11 +63,11 @@ def submitcrime():
         return home()
     description = sanitize_string(request.form.get("description"))
     # -- Debug output
-    print("category = " + category)
+    '''print("category = " + category)
     print("date = " + date)
     print("latitude = " + latitude)
     print("longitude = " + longitude)
-    print("description = " + description)
+    print("description = " + description)'''
     # We need to implement add_crime method for DBHelper class instance.
     DB.add_crime(category, date, latitude, longitude, description)
     return home()
